@@ -9,7 +9,7 @@
         <h2 class="mt-3">Book: {{ $book->bookName }}</h2>
         <h3>Author: {{ $book->bookAuthor }}</h3>
         <h4>Description:</h4>
-        <p>{{ $book->bookDescription }}</p>
+        <p>{{ $book->bookDescripition }}</p>
 
         <div class="mt-4">
             <form action="{{ route('books.destroy', ['book' => $book->book_id]) }}" method="POST" class="d-inline">
@@ -17,7 +17,7 @@
                 @method('DELETE')
                 <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this book?');">Delete Book</button>
             </form>
-            <a href="{{ route('books.index') }}" class="btn btn-secondary">Back to Books List</a>
+            <a href="{{ route('books.index') }}" class="btn btn-info">Back to Books List</a>
         </div>
     </div>
 

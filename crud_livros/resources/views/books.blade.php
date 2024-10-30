@@ -9,6 +9,13 @@
             <a href="{{ route('books.create') }}" class="btn btn-success">Add a Book</a>
         </div>
 
+        <form action="{{ route('books.index') }}" method="GET" class="mb-4">
+            <div class="input-group">
+                <input type="text" name="search" class="form-control" placeholder="Search books" value="{{ request()->input('search') }}">
+                <button class="btn btn-outline-secondary" type="submit">Search</button>
+            </div>
+        </form>
+
         <hr>
 
         <ul class="list-group">
@@ -33,19 +40,19 @@
                 <ul class="pagination justify-content-center">
                     @if ($currentPage > 1)
                         <li class="page-item">
-                            <a class="page-link" href="{{ route('books.index', ['page' => $currentPage - 1]) }}">Previous</a>
+                            <a class="page-link" href="{{ route('books.index', ['page' => $currentPage - 1, 'search' => request()->input('search')]) }}">Previous</a>
                         </li>
                     @endif
 
                     @for ($i = 1; $i <= $totalPages; $i++)
                         <li class="page-item {{ $currentPage == $i ? 'active' : '' }}">
-                            <a class="page-link" href="{{ route('books.index', ['page' => $i]) }}">{{ $i }}</a>
+                            <a class="page-link" href="{{ route('books.index', ['page' => $i, 'search' => request()->input('search')]) }}">{{ $i }}</a>
                         </li>
                     @endfor
 
                     @if ($currentPage < $totalPages)
                         <li class="page-item">
-                            <a class="page-link" href="{{ route('books.index', ['page' => $currentPage + 1]) }}">Next</a>
+                            <a class="page-link" href="{{ route('books.index', ['page' => $currentPage + 1, 'search' => request()->input('search')]) }}">Next</a>
                         </li>
                     @endif
                 </ul>

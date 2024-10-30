@@ -24,7 +24,7 @@
             </div>
             <div class="mb-3">
                 <label for="bookDescripition" class="form-label">Book Descripition</label>
-                <input type="text" name="bookAuthor" class="form-control" placeholder="Enter book Descripition" required>
+                <input type="text" name="bookDescripition" class="form-control" placeholder="Enter book Descripition" required>
             </div>
             <button type="submit" class="btn btn-success">Create</button>
             <a href="{{ route('books.index') }}" class="btn btn-danger">Cancel</a>

@@ -12,21 +12,30 @@ class BookController extends Controller
         $this ->book = new Book();
     }
 
-    public function index(Request $request)
-{
+    public function index(Request $request){
     $booksPerPage = 10; // Aqui defino o número de livros por página como solicitado
     $currentPage = $request->input('page', 1);
     $offset = ($currentPage - 1) * $booksPerPage;
 
+    $search = $request->input('search'); //Aqui capturo a entrada de busca
+    $query = $this->book; // Inicializa a consulta
+
+    // Aqui realizamos a consulta do campo de busca
+    if ($search) {
+        $query = $query->where('bookName', 'LIKE', "%{$search}%");
+    }
+
     $totalBooks = $this->book->count(); // aqui conto o total de livros
     $totalPages = ceil($totalBooks / $booksPerPage);// aqui conto o total de páginas
 
-    $books = $this->book->skip($offset)->take($booksPerPage)->get();
+    // Busca os livros para a página atual
+    $books = $query->skip($offset)->take($booksPerPage)->get();
 
     return view('books', [
         'books' => $books,
         'currentPage' => $currentPage,
         'totalPages' => $totalPages,
+        'search' => $search, // Passa a variável de busca para a view
     ]);
 }
     //Aqui redirecionamos para rota de criação
@@ -42,12 +51,14 @@ class BookController extends Controller
         $data = $request->validate([
             'bookName' => 'required|string|max:255',
             'bookAuthor' => 'required|string|max:255',
+            'bookDescripition' =>'required|string|max:500',
         ]);
 
         // Criar um novo livro
         $book = new Book();
         $book->bookName = $data['bookName'];
         $book->bookAuthor = $data['bookAuthor'];
+        $book->bookDescripition = $data['bookDescripition'];
         $book->save();
 
         // Redirecionar com uma mensagem

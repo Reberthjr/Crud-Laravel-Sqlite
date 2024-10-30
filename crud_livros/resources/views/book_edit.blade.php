@@ -28,12 +28,16 @@
 
             <div class="mb-3">
                 <label for="bookDescription" class="form-label">Description</label>
-                <textarea name="BookDescription" id="bookDescription" class="form-control" rows="3" required>{{ $book->bookDescription }}</textarea>
+                <textarea name="bookDescripition" id="bookDescription" class="form-control" rows="3" required>{{ $book->bookDescripition }}</textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary">Update</button>
+            <button type="submit" class="btn btn-success">Update</button>
             <a href="{{ route('books.index') }}" class="btn btn-danger">Cancel</a>
+            <a href="{{ route('books.index') }}" class="btn btn-info">Back to Books List</a>
+            <a href="{{ route('books.destroy', ['book' => $book->book_id]) }}" class="btn btn-danger">Delete Book</a>
+
         </form>
+
     </div>
 
     <footer class="mt-auto">
