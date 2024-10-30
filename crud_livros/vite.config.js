@@ -1,11 +1,8 @@
-import { defineConfig } from 'vite';
-import laravel from 'laravel-vite-plugin';
+const esbuild = require('esbuild');
 
-export default defineConfig({
-    plugins: [
-        laravel({
-            input: ['resources/css/app.css', 'resources/js/app.js'],
-            refresh: true,
-        }),
-    ],
-});
+esbuild.build({
+    entryPoints: ['src/index.js'], // ou o arquivo de entrada do seu projeto
+    bundle: true,
+    loader: { '.js': 'jsx' },
+    outdir: 'dist',
+}).catch(() => process.exit(1));

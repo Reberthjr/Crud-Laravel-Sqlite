@@ -12,9 +12,6 @@ class BookController extends Controller
         $this ->book = new Book();
     }
 
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
 {
     $booksPerPage = 10; // Aqui defino o número de livros por página como solicitado
@@ -32,18 +29,13 @@ class BookController extends Controller
         'totalPages' => $totalPages,
     ]);
 }
-
-    /**
-     * Show the form for creating a new resource.
-     */
+    //Aqui redirecionamos para rota de criação
     public function create()
     {
         return view('book_create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    //Aqui realizamos as validações e criação de um novo livro
     public function store(Request $request)
     {
         // Validação dos dados
@@ -62,27 +54,18 @@ class BookController extends Controller
         return redirect()->back()->with('message', 'Book created successfully!');
 
     }
-
-    /**
-     * Display the specified resource.
-     */
+    //Aqui redirecionamos para rota show, ondee é exibida a pagina "about"
     public function show(Book $book)
     {
         return view('book_show', ['book' => $book]);
 
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
+    //Aqui oredirecionamos para a pagina de edit
     public function edit(Book $book)
     {
         return view('book_edit',['book' =>$book ]);
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
+    //Aqui tratamos a edição do livro e realizamos o update no banco
     public function update(Request $request, string $id)
     {
        $updated = $this->book->where('book_id', $id)-> update($request->except(['_token','_method',]));
@@ -91,13 +74,17 @@ class BookController extends Controller
        }
         return redirect()->back()->with('message', 'Error update');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
+    // Aqui é onde realizamos o Delete  no banco de dados do livro pelo sei ID
     public function destroy(string $id)
     {
         $this->book->where('book_id', $id,)->delete();
         return redirect()->route('books.index');
     }
+    //Função criada para retornar todos os livros em json para uma tratativa em alguma ferramenta de frontend como o react.
+    public function getAll(){
+        $Teste = $this->book->all();
+
+        return response()->json($Teste, 200);
+    }
+
 }
