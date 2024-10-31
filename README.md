@@ -20,6 +20,10 @@ Abra o arquivo .env em um editor de texto e defina a conexão com o banco de dad
 DB_CONNECTION=sqlite
 DB_DATABASE=database/database.sqlite
 
+Defin uma chave de aplicação no .env, necessária para segurança no Laravel.
+php artisan key:generate
+
+
 Observação: 
 Caso deseje usar outro database, substitua 'database/database.sqlite' pelo caminho completo do seu arquivo SQLite. 
 Agora, você pode iniciar o servidor local com:
